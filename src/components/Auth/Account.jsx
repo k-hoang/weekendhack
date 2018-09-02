@@ -1,13 +1,13 @@
-import React, { Fragment } from "react";
+import React from "react";
 import styled from "styled-components";
 
-const Account = ({ displayName, handleSignOut, render }) => (
-  <Fragment>
-    {render({
-      leftItems: <Message>Welcome, {displayName}</Message>,
-      rightItems: <button onClick={handleSignOut}>Logout</button>
-    })}
-  </Fragment>
+import Navbar from "../Navbar";
+
+const Account = ({ displayName, handleSignOut }) => (
+  <Navbar
+    leftItems={<Message>Welcome, {displayName}</Message>}
+    rightItems={<button onClick={handleSignOut}>Logout</button>}
+  />
 );
 
 const Message = styled.h2`

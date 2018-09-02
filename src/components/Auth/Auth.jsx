@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import styled from "styled-components";
 
 import { signIn, signOut, listenForAuthChange } from "../../api/auth";
-import Ribbon from "../Ribbon";
 import SignIn from "./SignIn";
 import Account from "./Account";
+import Authenticating from "./Authenticating";
 
 class Auth extends Component {
   state = {
@@ -44,30 +43,17 @@ class Auth extends Component {
       <Account
         displayName={this.state.user.displayName}
         handleSignOut={signOut}
-        render={props => <StyledRibbon {...props} />}
       />
     ) : (
-      <SignIn
-        handleSignIn={signIn}
-        render={props => <StyledRibbon {...props} />}
-      />
+      <SignIn handleSignIn={signIn} />
     );
 
     return (
       <React.Fragment>
-        {this.state.authenticating ? (
-          <StyledRibbon middleItems={<div>Loading...</div>} />
-        ) : (
-          content
-        )}
+        {this.state.authenticating ? <Authenticating /> : content}
       </React.Fragment>
     );
   }
 }
-
-const StyledRibbon = styled(Ribbon)`
-  height: 4rem;
-  background: purple;
-`;
 
 export default Auth;
