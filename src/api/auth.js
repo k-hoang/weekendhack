@@ -1,4 +1,5 @@
 import firebase from "./firebase";
+import * as storeApi from "./firestore";
 
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
@@ -19,10 +20,25 @@ export const signOut = async () => {
   }
 };
 
+const handleLogin = async user => {
+  const { uid: userId, displayName } = user;
+  const userDoc = await storeApi.getUser(userId);
+  console.log(userDoc.data());
+
+  if (!userDoc.exists) {
+    await storeApi.createUser(userId, displayName);
+    return { userId, displayName };
+  }
+  return userDoc.data();
+};
+
 export const listenForAuthChange = (onLogin, onLogout) => {
-  auth.onAuthStateChanged(user => {
+  auth.onAuthStateChanged(async user => {
     if (user) {
-      onLogin(user);
-    } else onLogout();
+      const userData = await handleLogin(user);
+      onLogin(userData);
+    } else {
+      onLogout();
+    }
   });
 };

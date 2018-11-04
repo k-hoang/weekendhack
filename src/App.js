@@ -1,18 +1,12 @@
-import React, { Component } from "react";
-import Auth from "./components/Auth";
-import "./App.css";
+import React from "react";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Auth />
-        <h1>Find a partner to create something with</h1>
-        {/* <ProfilesList /> */}
-        {/* <EventBanner /> */}
-      </div>
-    );
-  }
-}
+import { AuthProvider } from "./contexts/AuthContext";
+import Navbar from "./components/Navbar";
+
+const App = () => (
+  <AuthProvider>
+    <Navbar />
+  </AuthProvider>
+);
 
 export default App;

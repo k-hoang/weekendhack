@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-import Navbar from "../Navbar";
+import StyledNavbar from "./StyledNavbar";
 
-const Account = ({ displayName, handleSignOut }) => (
-  <Navbar
+const Account = ({ displayName, handleLogout }) => (
+  <StyledNavbar
     leftItems={<Message>Welcome, {displayName}</Message>}
-    rightItems={<button onClick={handleSignOut}>Logout</button>}
+    rightItems={<button onClick={handleLogout}>Logout</button>}
   />
 );
 
